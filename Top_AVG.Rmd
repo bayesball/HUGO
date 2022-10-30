@@ -1,0 +1,122 @@
+---
+title: "Batting"
+author: "Jim Albert"
+date: "2022-10-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+### Illustration of some tidyverse work to explore the Batting table in the Lahman database
+
+I load in three packages:
+
+- the Lahman package contains the baseball data
+- the dplyr package is part of the tidyverse suite of packages useful for manipulation of data frames
+- the ggplot2 package allows us to create graphs
+
+```{r}
+library(Lahman)
+library(dplyr)
+library(ggplot2)
+```
+
+The Lahman database contains season-to-season data for MLB seasons from the beginning to the 2021 season.
+
+The Batting table is a data frame with 110,495 observations with 22 variables.
+
+**Question:  Which player had the highest career batting average between 1990 and 2020?**
+
+Here I start with the Batting data frame:
+
+-- filter the data to get only the stats for the seasons between 1990 and 2020
+-- for each player, find the cumulative H and AB (do this by the group_by and summarize functions)
+
+```{r}
+Batting %>% 
+  filter(yearID >= 1990,
+         yearID <= 2020) %>% 
+  group_by(playerID) %>% 
+  summarize(H = sum(H),
+            AB = sum(AB)) -> S
+```
+
+Here is what this new data frame S looks like:
+
+```{r}
+head(S)
+```
+
+I only want to consider players who have had at least 1000 AB during this period.  I will call the new data frame S1000.
+
+```{r}
+S %>% 
+  filter(AB >= 1000) -> S1000
+```
+
+Next, I compute the batting average for each player -- round to three decimal places.
+
+```{r}
+S1000 %>% 
+  mutate(AVG = round(H / AB, 3)) -> S1000
+```
+
+Last, I sort this data frame by AVG from highest to lowest:
+
+```{r}
+S1000 %>% 
+  arrange(desc(AVG)) -> S1000
+```
+
+Use the head function to show the top 10:
+
+```{r}
+head(S1000, 10) -> Top_AVG
+Top_AVG
+```
+
+It would be helpful to add the names of these players.  The People data frame contains info about each player including their player code, first and last names.  I will select specific variables from the People data frame and merge this information with my batting tab.e
+
+```{r}
+inner_join(Top_AVG, 
+           select(People, playerID,
+                  nameFirst, nameLast),
+           by = "playerID") -> Top_AVG
+```
+
+Now I display the names and top averages:
+
+```{r}
+Top_AVG %>% 
+  select(nameFirst, nameLast, AVG)
+```
+
+I create a new variable Name that pastes the first and last names.  
+
+```{r}
+Top_AVG %>% 
+  mutate(Name = paste(nameFirst, nameLast)) ->
+  Top_AVG
+```
+
+Then I use a dotplot to display these top averages.
+
+The ggplot() function has these inputs:
+
+- first I indicate the data frame to be used
+- the aes() function indicates roles -- here I want the x variable to be AVG and the y variable to be Name
+- the geom_point() is a geometric object to display - here this is a point.
+- I add a title to indicate what I am graphing
+
+```{r}
+ggplot(Top_AVG,
+       aes(AVG, Name)) +
+  geom_point() +
+  labs(title = "Top Batting Averages in Period 1990:2020")
+```
+
+Clearly, Tony Gwynn was the best hitter for average during this period.
