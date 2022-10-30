@@ -1,0 +1,112 @@
+---
+title: "World Series"
+author: "Jim Albert"
+date: "2022-10-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+### Illustration of some tidyverse work to explore the SeriesPost table in the Lahman database
+
+I load in three packages:
+
+- the Lahman package contains the baseball data
+- the dplyr package is part of the tidyverse suite of packages useful for manipulation of data frames
+- the ggplot2 package allows us to create graphs
+
+```{r}
+library(Lahman)
+library(dplyr)
+library(ggplot2)
+```
+
+The Lahman database contains season-to-season data for MLB seasons from the beginning to the 2021 season.
+
+The SeriesPost table is a data frame with 367 observations with 9 variables.  This data frame gives information about every post season MLB series including the World Series.
+
+**Question:  Which teams have played in the World Series the most?**
+
+Here I start with the SeriesPost data frame:
+
+-- filter the data to only consider the World Series playoffs
+-- I will separately look at the WS winners and losers
+
+```{r}
+SeriesPost %>% 
+  filter(round == "WS") -> WorldSeries
+```
+
+```{r}
+WorldSeries %>% 
+  group_by(teamIDwinner) %>% 
+  summarize(N = n()) %>% 
+  arrange(desc(N)) -> Winners
+head(Winners)
+```
+
+```{r}
+WorldSeries %>% 
+  group_by(teamIDloser) %>% 
+  summarize(N = n()) %>% 
+  arrange(desc(N)) -> Losers
+head(Losers)
+```
+
+Merge the two data frames.
+
+```{r}
+inner_join(Winners, Losers,
+           by = c("teamIDwinner" = "teamIDloser")) ->
+  WL
+head(WL)
+```
+
+Add the number of times winner to the number of times loser and rank from high to low.
+
+```{r}
+WL %>% 
+  mutate(Times = N.x + N.y) %>% 
+  arrange(desc(Times)) %>% 
+  head(10)
+```
+
+**Which player hit the most home runs in the World Series?**
+
+Here I want to use the data frame BattingPost that contains batting stats for all players who participated in playoff games.
+
+I consider only World Series games and find the home run count for all players -- store in data frame S_HR.
+
+```{r}
+BattingPost %>% 
+  filter(round == "WS") %>% 
+  group_by(playerID) %>% 
+  summarize(HR = sum(HR)) -> S_HR
+head(S_HR)
+```
+
+Here are the leaders:
+
+```{r}
+S_HR %>% 
+  arrange(desc(HR)) %>% 
+  head()
+```
+
+Add names:
+
+```{r}
+inner_join(S_HR,
+           select(People, 
+                  playerID, nameFirst, nameLast),
+           by = "playerID") %>% 
+  mutate(Name = paste(nameFirst, nameLast)) %>% 
+  select(Name, HR) %>% 
+  arrange(desc(HR)) %>% 
+  head(10)
+```
+
