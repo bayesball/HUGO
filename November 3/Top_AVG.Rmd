@@ -56,6 +56,7 @@ I only want to consider players who have had at least 1000 AB during this period
 ```{r}
 S %>% 
   filter(AB >= 1000) -> S1000
+head(S1000)
 ```
 
 Next, I compute the batting average for each player -- round to three decimal places.
@@ -63,6 +64,7 @@ Next, I compute the batting average for each player -- round to three decimal pl
 ```{r}
 S1000 %>% 
   mutate(AVG = round(H / AB, 3)) -> S1000
+head(S1000)
 ```
 
 Last, I sort this data frame by AVG from highest to lowest:

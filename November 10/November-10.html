@@ -11,9 +11,9 @@
 
 <meta name="author" content="Jim Albert" />
 
-<meta name="date" content="2022-10-30" />
+<meta name="date" content="2022-11-09" />
 
-<title>World Series</title>
+<title>November 10</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,154 +350,165 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">World Series</h1>
+<h1 class="title toc-ignore">November 10</h1>
 <h4 class="author">Jim Albert</h4>
-<h4 class="date">2022-10-30</h4>
+<h4 class="date">2022-11-09</h4>
 
 </div>
 
 
-<div id="illustration-of-some-tidyverse-work-to-explore-the-seriespost-table-in-the-lahman-database" class="section level3">
-<h3>Illustration of some tidyverse work to explore the SeriesPost table
-in the Lahman database</h3>
-<p>I load in three packages:</p>
+<div id="data-frame-manipulations" class="section level3">
+<h3>Data frame manipulations</h3>
+<p>In the <code>dplyr</code> package, here are some verbs for data
+manipulation:</p>
 <ul>
-<li>the Lahman package contains the baseball data</li>
-<li>the dplyr package is part of the tidyverse suite of packages useful
-for manipulation of data frames</li>
-<li>the ggplot2 package allows us to create graphs</li>
+<li><code>select</code> will choose variables (columns)</li>
+<li><code>filter</code> will choose observations (rows)</li>
+<li><code>mutate</code> will define new variables</li>
+<li><code>arrange</code> will sort the data frame with respect to somoe
+variable</li>
+<li><code>summarize</code> will compute a data summary</li>
 </ul>
+<p>The piping symbol <code>%&gt;%</code> passes the data frame from one
+operation to another operation.</p>
+<p>A common thing to do is to divide the data frame by a
+<code>group_by</code> on some variable and <code>summarize</code> each
+subgroup.</p>
+</div>
+<div id="exploring-lahmans-pitching-table" class="section level3">
+<h3>Exploring Lahman’s Pitching Table</h3>
+<p>Suppose we are interested in finding the pitchers with the highest
+strikeout rates (9 x SO / IP) in the seasons 1980 through 2021.
+Interested in</p>
+<ul>
+<li>the highest rates for a particular season</li>
+<li>the highest career rates</li>
+</ul>
+<p>Load the <code>Lahman</code> and <code>dplyr</code> packages.</p>
 <pre class="r"><code>library(Lahman)
-library(dplyr)
-library(ggplot2)</code></pre>
-<p>The Lahman database contains season-to-season data for MLB seasons
-from the beginning to the 2021 season.</p>
-<p>The SeriesPost table is a data frame with 367 observations with 9
-variables. This data frame gives information about every post season MLB
-series including the World Series.</p>
-<p><strong>Question: Which teams have played in the World Series the
-most?</strong></p>
-<p>Here I start with the SeriesPost data frame:</p>
-<p>– filter the data to only consider the World Series playoffs – I will
-separately look at the WS winners and losers</p>
-<pre class="r"><code>SeriesPost %&gt;% 
-  filter(round == &quot;WS&quot;) -&gt; WorldSeries</code></pre>
-<pre class="r"><code>WorldSeries %&gt;% 
-  group_by(teamIDwinner) %&gt;% 
-  summarize(N = n()) %&gt;% 
-  arrange(desc(N)) -&gt; Winners
-head(Winners)</code></pre>
-<pre><code>## # A tibble: 6 × 2
-##   teamIDwinner     N
-##   &lt;fct&gt;        &lt;int&gt;
-## 1 NYA             27
-## 2 SLN             11
-## 3 BOS              9
-## 4 NY1              7
-## 5 LAN              6
-## 6 CIN              5</code></pre>
-<pre class="r"><code>WorldSeries %&gt;% 
-  group_by(teamIDloser) %&gt;% 
-  summarize(N = n()) %&gt;% 
-  arrange(desc(N)) -&gt; Losers
-head(Losers)</code></pre>
-<pre><code>## # A tibble: 6 × 2
-##   teamIDloser     N
-##   &lt;fct&gt;       &lt;int&gt;
-## 1 NYA            13
-## 2 CHN             9
-## 3 NY1             9
-## 4 BRO             8
-## 5 SLN             8
-## 6 DET             7</code></pre>
-<p>Merge the two data frames.</p>
-<pre class="r"><code>inner_join(Winners, Losers,
-           by = c(&quot;teamIDwinner&quot; = &quot;teamIDloser&quot;)) -&gt;
-  WL
-head(WL)</code></pre>
-<pre><code>## # A tibble: 6 × 3
-##   teamIDwinner   N.x   N.y
-##   &lt;fct&gt;        &lt;int&gt; &lt;int&gt;
-## 1 NYA             27    13
-## 2 SLN             11     8
-## 3 BOS              9     4
-## 4 NY1              7     9
-## 5 LAN              6     6
-## 6 CIN              5     4</code></pre>
-<p>Add the number of times winner to the number of times loser and rank
-from high to low.</p>
-<pre class="r"><code>WL %&gt;% 
-  mutate(Times = N.x + N.y) %&gt;% 
-  arrange(desc(Times)) %&gt;% 
-  head(10)</code></pre>
-<pre><code>## # A tibble: 10 × 4
-##    teamIDwinner   N.x   N.y Times
-##    &lt;fct&gt;        &lt;int&gt; &lt;int&gt; &lt;int&gt;
-##  1 NYA             27    13    40
-##  2 SLN             11     8    19
-##  3 NY1              7     9    16
-##  4 BOS              9     4    13
-##  5 CHN              4     9    13
-##  6 LAN              6     6    12
-##  7 DET              4     7    11
-##  8 BRO              2     8    10
-##  9 CIN              5     4     9
-## 10 PHA              5     3     8</code></pre>
-<p><strong>Which player hit the most home runs in the World
-Series?</strong></p>
-<p>Here I want to use the data frame BattingPost that contains batting
-stats for all players who participated in playoff games.</p>
-<p>I consider only World Series games and find the home run count for
-all players – store in data frame S_HR.</p>
-<pre class="r"><code>BattingPost %&gt;% 
-  filter(round == &quot;WS&quot;) %&gt;% 
-  group_by(playerID) %&gt;% 
-  summarize(HR = sum(HR)) -&gt; S_HR
-head(S_HR)</code></pre>
-<pre><code>## # A tibble: 6 × 2
-##   playerID     HR
-##   &lt;chr&gt;     &lt;int&gt;
-## 1 aaronha01     3
-## 2 abbated01     0
-## 3 abbotku01     0
-## 4 abstebi01     0
-## 5 aceveal01     0
-## 6 adairje01     0</code></pre>
-<p>Here are the leaders:</p>
-<pre class="r"><code>S_HR %&gt;% 
-  arrange(desc(HR)) %&gt;% 
-  head()</code></pre>
-<pre><code>## # A tibble: 6 × 2
-##   playerID     HR
-##   &lt;chr&gt;     &lt;int&gt;
-## 1 mantlmi01    18
-## 2 ruthba01     15
-## 3 berrayo01    12
-## 4 snidedu01    11
-## 5 gehrilo01    10
-## 6 jacksre01    10</code></pre>
-<p>Add names:</p>
-<pre class="r"><code>inner_join(S_HR,
-           select(People, 
-                  playerID, nameFirst, nameLast),
-           by = &quot;playerID&quot;) %&gt;% 
+library(dplyr)</code></pre>
+<p>Start with Pitching data frame.</p>
+<ul>
+<li>filter to select the rows with the right seasons</li>
+<li>for each player/season, compute the number of SO and IP</li>
+<li>store results in data frame S</li>
+</ul>
+<pre class="r"><code>Pitching %&gt;% 
+  filter(yearID &gt;= 1980, yearID &lt;= 2021) %&gt;% 
+  group_by(playerID, yearID) %&gt;%
+  summarize(SO = sum(SO),
+            IP = sum(IPouts / 3)) -&gt; S
+head(S)</code></pre>
+<pre><code>## # A tibble: 6 × 4
+## # Groups:   playerID [1]
+##   playerID  yearID    SO    IP
+##   &lt;chr&gt;      &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+## 1 aardsda01   2004     5  10.7
+## 2 aardsda01   2006    49  53  
+## 3 aardsda01   2007    36  32.3
+## 4 aardsda01   2008    49  48.7
+## 5 aardsda01   2009    80  71.3
+## 6 aardsda01   2010    49  49.7</code></pre>
+<p>Focus on pitchers who threw at least 100 innings in a season.</p>
+<pre class="r"><code>S %&gt;% 
+  filter(IP &gt;= 100) -&gt; S100</code></pre>
+<p>Compute the SO rates and sort table from high to low. Display the top
+10.</p>
+<pre class="r"><code>S100 %&gt;% 
+  mutate(SO_Rate = 9 * SO / IP) %&gt;% 
+  arrange(desc(SO_Rate)) -&gt; S100
+head(S100)</code></pre>
+<pre><code>## # A tibble: 6 × 5
+## # Groups:   playerID [4]
+##   playerID  yearID    SO    IP SO_Rate
+##   &lt;chr&gt;      &lt;int&gt; &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1 colege01    2019   326  212.    13.8
+## 2 salech01    2018   237  158     13.5
+## 3 johnsra05   2001   372  250.    13.4
+## 4 salech01    2019   218  147.    13.3
+## 5 martipe02   1999   313  213.    13.2
+## 6 salech01    2017   308  214.    12.9</code></pre>
+<p>Attach the names to table.</p>
+<pre class="r"><code>inner_join(select(People, playerID,
+                  nameFirst, nameLast),
+           S100, by = &quot;playerID&quot;) %&gt;% 
   mutate(Name = paste(nameFirst, nameLast)) %&gt;% 
-  select(Name, HR) %&gt;% 
-  arrange(desc(HR)) %&gt;% 
-  head(10)</code></pre>
-<pre><code>## # A tibble: 10 × 2
-##    Name              HR
-##    &lt;chr&gt;          &lt;int&gt;
-##  1 Mickey Mantle     18
-##  2 Babe Ruth         15
-##  3 Yogi Berra        12
-##  4 Duke Snider       11
-##  5 Lou Gehrig        10
-##  6 Reggie Jackson    10
-##  7 Joe DiMaggio       8
-##  8 Frank Robinson     8
-##  9 Bill Skowron       8
-## 10 Hank Bauer         7</code></pre>
+  select(Name, yearID, SO_Rate)  %&gt;% 
+  arrange(desc(SO_Rate)) -&gt; S100
+head(S100)</code></pre>
+<pre><code>##             Name yearID  SO_Rate
+## 1    Gerrit Cole   2019 13.81790
+## 2     Chris Sale   2018 13.50000
+## 3  Randy Johnson   2001 13.40988
+## 4     Chris Sale   2019 13.31674
+## 5 Pedro Martinez   1999 13.20469
+## 6     Chris Sale   2017 12.93313</code></pre>
+<p>Might be interesting to look at bottom 10.</p>
+<pre class="r"><code>tail(S100)</code></pre>
+<pre><code>##               Name yearID  SO_Rate
+## 5801    Tommy John   1984 2.332721
+## 5802 Mike Caldwell   1983 2.286131
+## 5803      Ed Lynch   1983 2.267176
+## 5804 Ross Grimsley   1980 2.250000
+## 5805  Nate Cornejo   2003 2.126712
+## 5806   Kirk Rueter   2005 2.096273</code></pre>
+<p>Now we look at cumulative strikeout rates over this period (min IP is
+1000).</p>
+<p>Here we are grouping by pitcher (ignoring season) and finding total
+SO and IP for each pitcher.</p>
+<pre class="r"><code>Pitching %&gt;% 
+  filter(yearID &gt;= 1980, yearID &lt;= 2021) %&gt;% 
+  group_by(playerID) %&gt;%
+  summarize(SO = sum(SO),
+            IP = sum(IPouts / 3)) %&gt;% 
+  filter(IP &gt;= 1000) %&gt;% 
+  mutate(SO_Rate = 9 * SO / IP) -&gt; S_cum </code></pre>
+<p>Add the name information from the People data frame.</p>
+<pre class="r"><code>  inner_join(select(People, playerID,
+                  nameFirst, nameLast),
+             S_cum,
+             by = &quot;playerID&quot;) -&gt; S_cum </code></pre>
+<p>Create a top 6 table.</p>
+<pre class="r"><code>S_cum %&gt;% 
+  mutate(Name = paste(nameFirst, nameLast)) %&gt;% 
+  select(Name, IP, SO_Rate) %&gt;% 
+  arrange(desc(SO_Rate)) %&gt;% 
+  head(6)</code></pre>
+<pre><code>##            Name       IP  SO_Rate
+## 1    Robbie Ray 1035.667 11.21017
+## 2    Chris Sale 1672.333 11.08092
+## 3    Yu Darvish 1293.333 11.07139
+## 4  Jacob deGrom 1261.667 10.73580
+## 5  Max Scherzer 2536.667 10.71485
+## 6 Randy Johnson 4135.333 10.60979</code></pre>
+</div>
+<div id="retrosheet-data" class="section level3">
+<h3>Retrosheet Data</h3>
+<p>Retrosheet provides play by play data for all plays in recent
+seasons.</p>
+<p>I have put the Retrosheet file for a single season on my Github
+respository site.</p>
+<p>I use the read_csv() function from the readr package to read in this
+data and store in the data frame d2021.</p>
+<pre class="r"><code>library(readr)</code></pre>
+<pre class="r"><code>d2021 &lt;- read_csv(&quot;https://raw.githubusercontent.com/bayesball/HomeRuns2021/main/retro2021.csv&quot;)</code></pre>
+<pre><code>## Warning: One or more parsing issues, call `problems()` on your data frame for details,
+## e.g.:
+##   dat &lt;- vroom(...)
+##   problems(dat)</code></pre>
+<p>Show one line from this file.</p>
+<pre class="r"><code>d2021[10000, ]</code></pre>
+<pre><code>## # A tibble: 1 × 108
+##   HALF.…¹ GAME_ID AWAY_…² INN_CT BAT_H…³ OUTS_CT BALLS…⁴ STRIK…⁵ PITCH…⁶ AWAY_…⁷
+##   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
+## 1 ARI202… ARI202… CHN          7       1       2       0       0 &gt;B            2
+## # … with 98 more variables: HOME_SCORE_CT &lt;dbl&gt;, BAT_ID &lt;chr&gt;,
+## #   BAT_HAND_CD &lt;chr&gt;, RESP_BAT_ID &lt;chr&gt;, RESP_BAT_HAND_CD &lt;chr&gt;, PIT_ID &lt;chr&gt;,
+## #   PIT_HAND_CD &lt;chr&gt;, RESP_PIT_ID &lt;chr&gt;, RESP_PIT_HAND_CD &lt;chr&gt;,
+## #   POS2_FLD_ID &lt;chr&gt;, POS3_FLD_ID &lt;chr&gt;, POS4_FLD_ID &lt;chr&gt;, POS5_FLD_ID &lt;chr&gt;,
+## #   POS6_FLD_ID &lt;chr&gt;, POS7_FLD_ID &lt;chr&gt;, POS8_FLD_ID &lt;chr&gt;, POS9_FLD_ID &lt;chr&gt;,
+## #   BASE1_RUN_ID &lt;chr&gt;, BASE2_RUN_ID &lt;chr&gt;, BASE3_RUN_ID &lt;chr&gt;, EVENT_TX &lt;chr&gt;,
+## #   LEADOFF_FL &lt;lgl&gt;, PH_FL &lt;lgl&gt;, BAT_FLD_CD &lt;dbl&gt;, BAT_LINEUP_ID &lt;dbl&gt;, …</code></pre>
 </div>
 
 

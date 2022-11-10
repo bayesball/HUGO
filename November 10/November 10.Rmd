@@ -1,0 +1,145 @@
+---
+title: "November 10"
+author: "Jim Albert"
+date: "2022-11-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE)
+```
+
+### Data frame manipulations
+
+In the `dplyr` package, here are some verbs for data manipulation:
+
+- `select` will choose variables (columns)
+- `filter` will choose observations (rows)
+- `mutate` will define new variables
+- `arrange` will sort the data frame with respect to somoe variable
+- `summarize` will compute a data summary 
+
+The piping symbol `%>%` passes the data frame from one operation to another operation.
+
+A common thing to do is to divide the data frame by a `group_by` on some variable and `summarize` each subgroup.
+
+### Exploring Lahman's Pitching Table
+
+Suppose we are interested in finding the pitchers with the highest strikeout rates (9 x SO / IP) in the seasons 1980 through 2021.  Interested in 
+
+- the highest rates for a particular season 
+- the highest career rates
+
+Load the `Lahman` and `dplyr` packages.
+
+```{r}
+library(Lahman)
+library(dplyr)
+```
+
+Start with Pitching data frame.
+
+- filter to select the rows with the right seasons
+- for each player/season, compute the number of SO and IP
+- store results in data frame S
+
+```{r}
+Pitching %>% 
+  filter(yearID >= 1980, yearID <= 2021) %>% 
+  group_by(playerID, yearID) %>%
+  summarize(SO = sum(SO),
+            IP = sum(IPouts / 3)) -> S
+head(S)
+```
+
+Focus on pitchers who threw at least 100 innings in a season.
+
+```{r}
+S %>% 
+  filter(IP >= 100) -> S100
+```
+
+Compute the SO rates and sort table from high to low.
+Display the top 10.
+
+```{r}
+S100 %>% 
+  mutate(SO_Rate = 9 * SO / IP) %>% 
+  arrange(desc(SO_Rate)) -> S100
+head(S100)
+```
+
+Attach the names to table.
+
+```{r}
+inner_join(select(People, playerID,
+                  nameFirst, nameLast),
+           S100, by = "playerID") %>% 
+  mutate(Name = paste(nameFirst, nameLast)) %>% 
+  select(Name, yearID, SO_Rate)  %>% 
+  arrange(desc(SO_Rate)) -> S100
+head(S100)
+```
+
+Might be interesting to look at bottom 10.
+
+```{r}
+tail(S100)
+```
+
+Now we look at cumulative strikeout rates over this period (min IP is 1000).
+
+Here we are grouping by pitcher (ignoring season) and finding total SO and IP for each pitcher.
+
+```{r}
+Pitching %>% 
+  filter(yearID >= 1980, yearID <= 2021) %>% 
+  group_by(playerID) %>%
+  summarize(SO = sum(SO),
+            IP = sum(IPouts / 3)) %>% 
+  filter(IP >= 1000) %>% 
+  mutate(SO_Rate = 9 * SO / IP) -> S_cum 
+```
+
+Add the name information from the People data frame.
+
+```{r}
+  inner_join(select(People, playerID,
+                  nameFirst, nameLast),
+             S_cum,
+             by = "playerID") -> S_cum 
+```
+
+Create a top 6 table.
+
+```{r}
+S_cum %>% 
+  mutate(Name = paste(nameFirst, nameLast)) %>% 
+  select(Name, IP, SO_Rate) %>% 
+  arrange(desc(SO_Rate)) %>% 
+  head(6)
+```
+
+### Retrosheet Data
+
+Retrosheet provides play by play data for all plays in recent seasons.
+
+I have put the Retrosheet file for a single season on my Github respository site.
+
+I use the read_csv() function from the readr package to read in this data and store in the data frame d2021.
+
+```{r}
+library(readr)
+```
+
+```{r}
+d2021 <- read_csv("https://raw.githubusercontent.com/bayesball/HomeRuns2021/main/retro2021.csv")
+```
+Show one line from this file.
+
+```{r}
+d2021[10000, ]
+```
+
+

@@ -39,6 +39,7 @@ Here I start with the SeriesPost data frame:
 ```{r}
 SeriesPost %>% 
   filter(round == "WS") -> WorldSeries
+head(WorldSeries)
 ```
 
 ```{r}
@@ -75,6 +76,14 @@ WL %>%
   head(10)
 ```
 
+Which team is NY1?
+
+```{r}
+Teams %>% 
+  filter(teamID == "NY1") %>% 
+  select(franchID)
+```
+
 **Which player hit the most home runs in the World Series?**
 
 Here I want to use the data frame BattingPost that contains batting stats for all players who participated in playoff games.
@@ -107,6 +116,6 @@ inner_join(S_HR,
   mutate(Name = paste(nameFirst, nameLast)) %>% 
   select(Name, HR) %>% 
   arrange(desc(HR)) %>% 
-  head(10)
+  head(20)
 ```
 
