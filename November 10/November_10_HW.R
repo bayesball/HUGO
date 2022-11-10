@@ -1,5 +1,13 @@
 # November 10 Assignment
 
+# PART I
+
+# Work through the flights example material from Chapter 5 -
+# Data Transformation from Data Science with R
+# https://r4ds.had.co.nz/transform.html
+
+# PART II
+
 # Pitching is a data frame with 48,399 observations and 30 variables.  A row consists of stats for a specific pitcher for a given season and stint (if a player is traded midseason, he may have several stints within a single season).
 
 # 1.  Assuming at least 100 innings pitched, who had the best season ERA in all seasons 1960 or later?
@@ -25,3 +33,6 @@
 # Luck = W - E
 
 # For all teams in seasons 1960 or later, which teams had the highest Luck values?  Which teams had the lowest Luck values?
+
+# CAN YOU TURN IN YOUR R SCRIPT FOR YOUR WORK BY
+# NEXT WEEK (November 17)?
