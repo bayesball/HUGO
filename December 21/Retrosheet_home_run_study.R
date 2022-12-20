@@ -1,5 +1,4 @@
 
-
 # situational home run hitting
 
 library(dplyr)
@@ -10,7 +9,7 @@ library(readr)
 
 d2021 <- read_csv("https://raw.githubusercontent.com/bayesball/HomeRuns2021/main/retro2021.csv")
 
-# what is the home run rate (HR / AB)
+# what is the overall home run rate (HR / AB)
 
 d2021 %>%
   summarize(HR = sum(EVENT_CD == 23),
@@ -41,14 +40,14 @@ d2021 %>%
 ggplot(S, aes(Count, HR_Rate)) +
   geom_point()
 
-# what is the home run rate for each team
+# what is the home run count for each team
 # at home, at away games
 
 d2021 %>%
   mutate(HOME_TEAM_ID = substr(GAME_ID, 1, 3),
-         BAT_TEAM_ID = ifelse(BAT_HOME_ID == 0,
-                              AWAY_TEAM_ID,
-                              HOME_TEAM_ID)) -> d2021
+         BAT_TEAM_ID = ifelse(BAT_HOME_ID == 1,
+                              HOME_TEAM_ID,
+                              AWAY_TEAM_ID)) -> d2021
 
 d2021 %>%
   group_by(BAT_TEAM_ID) %>%
@@ -57,6 +56,9 @@ d2021 %>%
             HR_Away = sum((EVENT_CD == 23) *
                            (BAT_HOME_ID == 0))) -> S1
 
+ggplot(S1, aes(HR_Home - HR_Away, BAT_TEAM_ID)) +
+  geom_point() +
+  geom_vline(xintercept = 0, color = "red")
 
 # what inning is it most likely to see a HR hit?
 
