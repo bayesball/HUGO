@@ -7,7 +7,7 @@ library(readr)
 
 # read in a Retrosheet dataset from a complete season (2022)
 
-# first I will download a R workspace file 
+# first I will download a R workspace file
 # https://github.com/bayesball/HomeRuns2021/pbp.2022.Rdata
 # then I will read this datafile into R
 # (menu Workspace > Load Workspace file)
@@ -15,6 +15,10 @@ library(readr)
 # want to make sure that the file d2022 is in the R workspace
 
 ls()
+
+# here is a description of all of the variables in this
+# data frame
+# https://www.retrosheet.org/datause.txt
 
 # what is the overall home run rate (HR / AB)
 
