@@ -25,7 +25,8 @@ The Statcast data gives information on the beginning pitch speed
 
 We drew a scatterplot of the breaks colored by pitch types.  
 Clearly the five types of pitches are distinguished in the 
-scatterplot.  The knuckle curves break down and to the right (from the catcher's perspective). The changeups, four-seamers, and sinkers 
+scatterplot.  The knuckle curves break down and to the right 
+(from the catcher's perspective). The changeups, four-seamers, and sinkers 
 break to the left -- in this group, the changeups had the 
 largest downward break.
 
