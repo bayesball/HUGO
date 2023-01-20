@@ -1,0 +1,55 @@
+Statcast Exploration Study
+
+1.  Introduction
+
+Looking at Statcast data for two Phillies pitchers Aaron Nola and Zack Wheeler for the 2022 season.
+
+Statcast dataset has data on 5397 pitches for 93 variables.
+
+2.  Pitch Type
+
+We constructed a table of the pitch types for the two pitchers.  We see that Wheeler primarily throws a four-seamer, slider and sinker with some changeups and curveballs.  In contrast, Nola throws four-seamers, and knuckle-curves, followed by sinkers, changeups, and cutters.
+
+By taking row-percentages, we get some additional information.  Of Wheeler's pitches, 42% are four-seamers and 27% are sliders.  Of Nola's pitches, 33% are four-seamers and 26% are knuckle-curves.
+
+3.  Pitch Break and Speed
+
+The Statcast data gives information on the beginning pitch speed (mph) and the horizontal and vertical breaks of the pitches.
+
+We drew a scatterplot of the breaks colored by pitch types.  Clearly the five types of pitches are distinguished in the scatterplot.  The knuckle curves break down and to the right (from the catcher's perspective). The changeups, four-seamers, and sinkers break to the left -- in this group, the changeups had the largest downward break.
+
+We also drew parallel box plots of the speeds of the five pitch types of Nola.  He throws his curve balls in the upper 70's, the cutter and changeups in the upper 80's, and his fastball and sinker in the mid 90's.
+
+4.  Pitch Location
+
+We plotted the pitch locations for all of Nola's curve balls.  To figure out the location, we added the boundary of the zone.
+
+We see that his curve balls tend to be located from high-left to low-right which is typical for a right-handed pitcher.  Many of his pitches tend to be thrown out of the zone.
+
+5.  Pitch Outcome
+
+We constructed a table of the pitch type and the pitch outcomes.  We again computed row fractions which help to find the most likely outcomes for each pitch type.
+
+For Aaron Nola ...
+
+- He is most likely to throw his changeup for a ball.
+- He is most likely to get a called strike on his sinker.
+- He is most likely to get a swinging strike on his curve ball.
+- It is most likely to get his changeup and sinker in play.
+
+For Zack Wheeler ...
+
+- He is also most likely to throw his changeup for a ball.
+- He is most likely to get a called strike on his four-seamer.
+- He is most likely to get a swinging strike on his four-seamer.
+- He is most likely to get his sinker in play.
+
+5.  Home Runs
+
+We see that Wheeler and Nola respectively let up 13 and 19 home runs.
+
+Wheeler tended to let up home runs on his four-seamer and slider.
+
+In contrast, Nola let up home runs on all of his pitch types.
+
+We drew a scatterplot of the pitch locations where home runs were hit.  We see that home runs tend to be hit by balls inside the zone.
