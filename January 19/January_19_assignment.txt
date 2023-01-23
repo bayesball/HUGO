@@ -1,0 +1,28 @@
+January 19 Assignment
+
+I've added a new data file "four_pitchers.csv" in the January 19 folder on my Github site:
+
+https://github.com/bayesball/HUGO/tree/main/January%2019
+
+For your assignment, explore the pitches of your four selected pitchers.  Here are some questions to answer (write out answers to the questions in full sentences).
+
+For each pitcher ...
+
+1.  What types of pitches does he commonly throw?
+
+2.  Can you describe each of these pitch types in terms of speed and break 
+(horizontal and vertical)?     Base your answer on the scatterplots of the break values.
+
+3.  Where in the zone is a particular type of pitch thrown?
+
+4.  Which type of pitch will most likely result in a swinging strike?  
+
+5.  Which type of pitch will most likely result in a called strike?
+
+Basically, you are writing a paragraph scouting report for each pitcher, describing what you are learning from your work on the Statcast data.  
+
+I'd like you to turn in your four paragraphs before our next meeting.
+
+Here is a similar writeup based on what I discussed in our meeting.
+
+https://github.com/bayesball/HUGO/blob/main/January%2019/stat_exploration_takeaways.txt
