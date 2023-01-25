@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 You will turn in this Rmd document when you are done.
 ****************************************************
 
+## PART A
+
 All of these questions relate to expected batting average.
 
 You'll be using the Statcast balls in play data:
@@ -56,4 +58,6 @@ This should be close to the hit probability of 0.749.
 
 7.  Who was the best pitcher in terms of E(H)?
 
+## PART B -- The Project
 
+Can you describe a particular problem that you'd like to address for your project?  You mentioned that you were interested in expected batting average, so perhaps there is a specific question that you'd like to address. Once I get a handle of topics you are interested in, then I can focus our meetings on those topics.
