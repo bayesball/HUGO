@@ -1,0 +1,59 @@
+---
+title: "January 26 Assignment"
+author: "Jim Albert"
+date: "2023-01-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+****************************************************
+You will turn in this Rmd document when you are done.
+****************************************************
+
+All of these questions relate to expected batting average.
+
+You'll be using the Statcast balls in play data:
+
+```{r}
+library(readr)
+scip <- read_csv("https://raw.githubusercontent.com/bayesball/HUGO/main/January%2026/sc2022_ip.csv")
+```
+
+```{r}
+library(dplyr)
+scip %>% 
+  filter(batter == 545361,
+         events == "double") -> doubles
+```
+
+1.  Mike Trout hit a double in the 2022 season where the launch angle was 7, the launch speed was 110.5 and the estimated hit probability was 0.749.
+
+Look at all balls in play where the launch speed is between 105.5 and 115.5 and the launch angle is between 4 and 10 degrees.
+
+- Find the number of balls in play.
+- Find the number of hits.
+- Find the hit rate H / BIP
+
+This should be close to the hit probability of 0.749.
+
+2.  Suppose instead that you want to find the hit probability when the launch angle is 20 and the launch speed is 90.  Find the hit probability by finding the hit rate when the launch angle is betweeen 17 and 23 degrees and the launch speed is between 87 and 93 mph.
+
+3.  For all pitchers in the 2022 season, 
+
+- find the number of balls in play BIP
+- find the number of hits allowed H
+- find the expected number of hits E(H)
+- find the number of hits added HA = H - E(H)
+
+4.  Find the pitcher who allowed the most hits.
+
+5.  Find the top five pitchers in terms of hits added
+
+6.  Find the bottom five pitchers in terms of hits added
+
+7.  Who was the best pitcher in terms of E(H)?
+
+
