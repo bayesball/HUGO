@@ -38,10 +38,28 @@ spec(scip)
 
 ### Explore launch angles and exit velocities
 
+```{r}
+library(ggplot2)
+library(dplyr)
+ggplot(sample_n(scip, size = 2000),
+       aes(launch_angle, launch_speed)) +
+  geom_point()
+```
+
+If launch angle < 10, ground ball
+if launch angle is in (10, 25), line drive
+if launch angle is in (25, 50), fly ball
+if launch angle is over 50, pop up
+
 ### Launch variables and hits
 
-Balls hit with suitable values of LA and EV tend
+Balls hit with suitable values of LA and LS tend
 to be hits.
+
+```{r}
+hits <- c("single", "double", "triple", "home_run")
+```
+
 
 ![](expected_ba_graph.png)
 
@@ -52,13 +70,78 @@ line drive, fly ball, pop up).
 
 Statcast data has a variable `estimated_ba_using_speedangle` which estimates the probability of a hit for a batted ball given the LA and LS measurements.
 
+```{r}
+scip[1200, ]
+```
+
+
 Define
 
+- H = hits
+- BIP = balls in play
 - xH = expected hits
-- xBA = expected batting average
+- xBA = expected batting average (on balls in play)
+
+$$
+xBA = \frac{xH}{BIP}
+$$
+
 - HA = hits added = H - xH
 
 Compute for each hitter in the 2022 season
 H, xH, BA, xBA, HA.
 
+option-command-i
+
+define a hit variable
+
+```{r}
+scip %>% 
+  mutate(hit = ifelse(events %in% hits, 1, 0)) -> scip
+```
+
+```{r}
+head(scip)
+```
+
+```{r}
+scip %>% 
+  group_by(batter) %>% 
+  summarize(BIP = n(),
+            H = sum(hit),
+            EH = sum(estimated_ba_using_speedangle)) %>% 
+  mutate(BA = H / BIP,
+         EBA = EH / BIP,
+         HA = H - EH) ->
+  S
+```
+
+```{r}
+head(S)
+```
+
+1.  Which batter has the highest hits added?
+
+2.  Which batter has the lowest hits added?
+
+```{r}
+S %>% 
+  arrange(desc(HA)) -> S
+```
+
+Here are the top ones:
+
+The top one is Goldschmidt.
+
+```{r}
+head(S)
+```
+
+Here is the bottom 10:
+
+```{r}
+tail(S)
+```
+
+Corey Segar is the bottom -- wonder why?
 

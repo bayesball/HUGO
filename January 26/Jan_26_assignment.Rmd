@@ -35,6 +35,17 @@ scip %>%
 
 Look at all balls in play where the launch speed is between 105.5 and 115.5 and the launch angle is between 4 and 10 degrees.
 
+```{r}
+scip %>% 
+  filter(launch_angle > 4, launch_angle < 10,
+         launch_speed > 105.5, launch_speed < 115.5) %>% 
+  summarize(BIP = n(),
+            H = sum(events %in% c("single", "double",
+                                  "triple", "home_run"))) %>% 
+  mutate(Hit_Rate = H / BIP)
+```
+
+
 - Find the number of balls in play.
 - Find the number of hits.
 - Find the hit rate H / BIP
@@ -57,6 +68,10 @@ This should be close to the hit probability of 0.749.
 6.  Find the bottom five pitchers in terms of hits added
 
 7.  Who was the best pitcher in terms of E(H)?
+
+8.  Think of other questions of interest and answer them.  Could focus on particular pitchers you care about.
+
+543037 is Cole
 
 ## PART B -- The Project
 
