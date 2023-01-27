@@ -16,3 +16,7 @@ http://www.thepostgame.com/features/201101/sabermetrician-exile
 3.  Here's one of my blog posts looking at variables that the pitcher controls.
 
 https://baseballwithr.wordpress.com/2020/09/28/is-pitching-75-of-baseball/
+
+4.  Here is another article on mine on home run rates, seeing if it is more about the batter or the pitcher.
+
+https://baseballwithr.wordpress.com/2017/12/18/2017-home-runs-estimating-hitter-and-pitcher-rates/
