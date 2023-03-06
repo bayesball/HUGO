@@ -1,6 +1,8 @@
 Reference List
 ------------
 
+For each article, you should summarize what the main message and comment on what you found interesting.
+
 Articles about pitchers and balls put into play:
 
 1.  Here is the original article
@@ -20,3 +22,5 @@ https://baseballwithr.wordpress.com/2020/09/28/is-pitching-75-of-baseball/
 4.  Here is another article on mine on home run rates, seeing if it is more about the batter or the pitcher.
 
 https://baseballwithr.wordpress.com/2017/12/18/2017-home-runs-estimating-hitter-and-pitcher-rates/
+
+5.  By searching via Google, find and read two new articles that comment about Virus McCracken's article.

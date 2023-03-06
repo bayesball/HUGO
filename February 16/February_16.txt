@@ -1,0 +1,46 @@
+February 16, 2023
+
+Main question:  what are suitable measures for pitchers?
+
+Read my blog post:  
+
+https://baseballwithr.wordpress.com/2023/01/30/ability-and-luck-in-fangraphs-pitching-statistics/
+
+FanGraphs web site gives a large number of pitching measures of different types:
+
+Dashboard
+Standard
+Advanced
+Batted Ball
+Win Probability
+Pitch Value
+Plate Discipline
+Value
+Pitch Info
++ Stats
+Statcast
+
+Which measures are used to determine the Cy Young awards each season?
+
+What are some traditional measures?  What's wrong with these measures?
+
+Problem:  some measures are impacted by other (non-pitching variables) such as the team performance or defensive fielding performance, ballpark, etc.
+
+General question:  Which measures are best in assessing pitching ability?
+
+One method:
+
+- collect the measure for two consecutive seasons for a group of pitchers
+- construct a scatterplot of the season measures
+- generally see a positive association pattern
+- strength of the association is measured by a correlation (falls between -1 and 1)
+- larger correlation values correspond to measures reflecting pitcher abilities
+
+I wrote a Shiny app where you can  play with these scatterplots:
+
+https://bayesball.shinyapps.io/FanGraphs_Pitching_Measures/
+
+
+
+
+

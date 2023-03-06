@@ -28,3 +28,8 @@ pitch type, breaks and speed of each pitch, and the outcomes of the pitch.
 6.  January 26
 
 Introduced the concept of expected batting average.
+
+7.  February 9
+
+A help session working in on RStudio Cloud.
+
