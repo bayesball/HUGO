@@ -1,0 +1,22 @@
+March 13 Assignment
+
+1.  Here is an article of mine on the usefulness of the win/loss record to measure pitcher ability.
+
+https://baseballwithr.wordpress.com/2022/03/21/is-a-pitchers-win-loss-record-meaningful/
+
+2.  The existence of clutch ability is a controversial topic.  Here are several articles on the subject.
+
+https://sabr.org/journal/article/do-clutch-hitters-exist/
+
+https://www.baseballprospectus.com/news/article/38519/prospectus-feature-revised-look-clutch-hitting-part-2/#:~:text=While%20the%20general%20sabermetric%20consensus,skill%2C%20the%20topic%20remains%20controversial.
+
+3.  Here's an article of mine that asks if a batting average is a good measure of the ability of a hitter.
+
+https://bayesball.github.io/BLOG/batting_average.html
+
+4.  Try out my Shiny app that displays a scatterplot of a particular FanGraphs measure for two consecutive seasons.
+
+For each pitching measure, find the correlation between the measure for the two seasons.
+
+Rank the pitching measures from best to worst in measuring pitching ability.
+
