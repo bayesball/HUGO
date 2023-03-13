@@ -32,3 +32,4 @@ For each pitching measure, find the correlation between the measure for the two 
 
 Rank the pitching measures from best (top) to worst (bottom) in measuring pitching ability.
 
+5.  Your project will be to write a blog post that summarizes what you've learned and applies it to your situation (playing for your baseball team).  Write a brief outline on the type of things in this blog post.
