@@ -1,14 +1,40 @@
 March 13, 2023
 
-General theme -- some baseball measures are more useful than others in understanding player ability.
+General theme for the day -- some baseball measures are more useful than others in understanding player ability.
 
-1.  Some review material:  Tom Tango (famous sabermetrician) hates the batting average as a measure of hitting performance.
+1.  Let's talk about batting average.
 
-Why? 
+Tom Tango (famous sabermetrician) hates the batting average as a measure of hitting performance.
+
+There are at least three reasons why batting average is a poor measure of hitting.
+
+Reason 1. (What does it omit?)
+
+Reason 2. (Value of hits?)
+
+Reason 3. (Use in prediction)
+
+Any useful measure should be predictive.  That is, if you know the measure for one season, you can accurately predict the value of the measure for the next season.
+
+Here's a Shiny app to help understand this point.
+
+- we collect a specific measure for two consecutive seasons for a group of batters
+- construct a scatterplot of the season measures
+- generally see a positive association pattern
+- strength of the association is measured by a correlation (falls between -1 and 1)
+- larger correlation values (close to 1) correspond to measures reflecting batter abilities
+
+Let's try it out for FanGraphs hitting stats for 2021 and 2022.
+
+https://bayesball.shinyapps.io/FanGraphs_Batting_Measures/
 
 I wrote a paper asking if a batting average is a good measure of the ability of a hitter. (You'll read this as part of your homework.)
 
 2.  Main question:  what are suitable measures for pitchers?
+
+- Which measures are used to determine the Cy Young awards each season?
+
+- What are some traditional measures?  What's wrong with these measures?
 
 - Read my blog post:  
 
@@ -28,23 +54,11 @@ Pitch Info
 + Stats
 Statcast
 
-- Which measures are used to determine the Cy Young awards each season?
-
-- What are some traditional measures?  What's wrong with these measures?
-
 - Problem:  some measures are impacted by other (non-pitching variables) such as the team performance or defensive fielding performance, ballpark, etc.
 
 - General question:  Which measures are best in assessing pitching ability?
 
-One method:
-
-- collect the measure for two consecutive seasons for a group of pitchers
-- construct a scatterplot of the season measures
-- generally see a positive association pattern
-- strength of the association is measured by a correlation (falls between -1 and 1)
-- larger correlation values correspond to measures reflecting pitcher abilities
-
-I wrote a Shiny app where you can  play with these scatterplots:
+I wrote a Shiny app where one constructs scatterplots of pitching measures for two consecutive seasons.
 
 https://bayesball.shinyapps.io/FanGraphs_Pitching_Measures/
 
