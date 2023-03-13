@@ -26,5 +26,5 @@ https://bayesball.shinyapps.io/FanGraphs_Pitching_Measures/
 
 For each pitching measure, find the correlation between the measure for the two seasons.
 
-Rank the pitching measures from best to worst in measuring pitching ability.
+Rank the pitching measures from best (top) to worst (bottom) in measuring pitching ability.
 
