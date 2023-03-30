@@ -1,0 +1,85 @@
+Baseball Savant
+Comments on pitcher page
+
+Aaron Nola page
+
+2022 Pitch Distribution
+- shows frequency of use and pitch speed
+- doesn't clearly show differences in frequency in use
+
+2022 MLB Percentile Rankings
+- 14 measures
+- what do we learn about Nola's strengths?
+- xERA / xwOBA interesting stat
+- some of these measures like Barrel% are hitter stats (most variation in Barrel% is due to hitters rather than pitcher)
+- 90 for Chase Rate
+
+Trends in xwOBA over time
+- what are we looking for?
+
+Statcast Statistics
+- Usefulness of Max EV
+- nice to highlight unusually low or high values
+- see obvious trend in average launch angle over seasons
+- definition of sweet spot?
+
+Statcast Pitch Arsenal
+- shows location of each pitch
+- allows for filtering to look at RH, LH, ahead in count, behind in count, etc.
+- suggestion:  add some comparative graphs
+
+Pitch % Across Seasons
+- are we interested in comparison of pitch % -- if so, that would be a different graph
+- pop-up menus allow one to plot other measures across season
+
+Pitch Tracking
+- gives stats for each pitch type
+- usefulness of this table?  
+- just counts that are hard to interpret
+
+Batted Ball Profile
+- different batted ball stats for each season
+- Player and MLB rows correspond to all Nola seasons?
+- does show "similar" pitchers to Nola with respect to batted balls
+
+Pitch Movement
+- different pitch movement stats by season
+- different line for each pitch type
+
+Table of vertical and horizontal movements for each pitch type for each season
+
+Run Values by Pitch Type
+- table of run values by pitch type by season
+
+Spin Direction
+- table of spin stats by pitch type by season
+- hard to interpret the table values
+- have to figure out the special graphic
+
+Swing/Take
+- not sure about the different Runs measures
+
+Plate Discipline
+- table of different stats (zone %) for each season
+
+Percentile Rankings
+- this is interesting since it places a percentile rank on each of these common pitch stats
+
+Expected Home Runs
+- table
+
+Expected Home Runs by Park
+
+Year to Year Changes
+- like the general idea of comparing percentages from season to to the next season
+- using the wrong scale to compare percentages
+- maybe I should redo the table using legit comparisons?
+
+Statcast Shift Statistics
+
+Pitch Distribution
+- alternative display to the one on top
+
+
+
+

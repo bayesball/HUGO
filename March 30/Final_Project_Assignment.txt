@@ -1,0 +1,20 @@
+Final Project Description
+
+General task:
+
+Write a post for the Exploring Baseball Data with R blog that describes what you learned over the past few months and how that relates to your baseball playing at AIG.
+
+Proposed outline of your blog post.
+
+1.  (Introduction.). Provide some background information about yourself including your background in playing baseball, your particular position on the AIG baseball team, and your goals for the future.
+
+2.  (Current Use of Statistics.) What statistics are currently being used on your baseball team to rate players, specifically pitchers? What makes the top pitchers the best from a statistical viewpoint?
+
+3.  (New Insights.). What have you recently learned about measurements of batters and pitchers?  What measures or related topics have you learned that were unexpected or unknown to you?
+
+4.  (Application.). If you were coaching your high school team, what types of new measures of pitchers or hitters would you introduce?  How would these new measures help the coaches evaluate players?
+
+---------
+
+Turn in a draft blog post 48 hours before our next scheduled meeting time. 
+
